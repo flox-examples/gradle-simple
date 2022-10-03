@@ -4,7 +4,7 @@
     in
       buildGradle {
         pname = "gradle-simple";
-        nativeBuildInputs = with pkgs; [ openjdk];
+        nativeBuildInputs = with pkgs; [ makeWrapper openjdk ];
         envSpec = ./gradle-env.json;
         src = ../..;
          gradleFlags = [ "distTar" ];
@@ -14,6 +14,7 @@
            pushd build/distributions
            tar -xf *.tar
            cp -r */* $out
+           wrapProgram $out/bin/gradle-simple --prefix PATH : ${pkgs.openjdk}/bin
            popd
          '';
       }
