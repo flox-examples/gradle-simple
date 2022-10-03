@@ -1,4 +1,4 @@
-with (import <nixpkgs> {});
+{callPackage,...}:
     let
       buildGradle = callPackage ./gradle-env.nix {};
     in
@@ -7,13 +7,11 @@ with (import <nixpkgs> {});
     
         envSpec = ./gradle-env.json;
     
-        src = ./.;
+        src = ../..;
     
         gradleFlags = [];
     
         installPhase = ''
-          ls -la /bin 
-          mkdir -p $out
-          cp -r /build  $out
+          exit 2
         '';
       }
